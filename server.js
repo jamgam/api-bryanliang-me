@@ -25,6 +25,10 @@ app.get('/', (req, res, next) => {
   res.json({api: 'api.bryanliang.me', version: '1.0.0'})
 })
 
+app.get('/.well-known/acme-challenge/cz_5C2r_UcJkBBf8pdXo0X7lIPqMIS6s0gLMFg3WB8A', (req, res, next) => {
+  res.send('cz_5C2r_UcJkBBf8pdXo0X7lIPqMIS6s0gLMFg3WB8A.FhCtF_AViQAZivG8SKxnrqKtnqhQ459XAKWxz9RMosY')
+})
+
 app.use('/graphQl', (req, res, next) => {
   const { query, verificationHash } = req.body
   const correctHash = hash({query, key: process.env.SECRET_KEY})
