@@ -37,7 +37,7 @@ const RootMutation = new GraphQLObjectType({
       resolve(parentValue, {id, username}) {
         const query = `UPDATE score SET username = $1 WHERE id = $2 RETURNING *`;
         const values = [ 
-          username, 
+          username?.substring(0, 12), 
           id,
         ];
 
