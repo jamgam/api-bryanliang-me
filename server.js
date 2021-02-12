@@ -20,7 +20,10 @@ const PORT = process.env.PORT || 3000
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-app.use('/', express.static('public'))
+
+app.get('/', (req, res, next) => {
+  res.json({api: 'api.bryanliang.me', version: '1.0.0'})
+})
 
 app.use('/graphQl', (req, res, next) => {
   const { query, verificationHash } = req.body
@@ -40,18 +43,6 @@ app.use(
     graphiql: true
   })
 );
-
-app.post('/score', (req, res, next) => {
-  let valid = false
-
-  const { score, time, verificationHash } = req.body
-  
-  if (hash({score, time, key: process.env.SECRET_KEY}) === verificationHash) {
-    valid = true
-  }
-
-  res.json(valid)
-})
 
 app.listen(PORT, () => {
   console.log(`listening on *:${PORT}`)
